@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karthikeyan S — ECE Engineer & Project Associate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0B0F14;
+      --surface:   #111820;
+      --border:    #1E2A38;
+      --accent:    #00D4A8;
+      --accent2:   #0077FF;
+      --text:      #E2EAF0;
+      --muted:     #6A8499;
+      --card:      #141E28;
+      --ff-display: 'Space Mono', monospace;
+      --ff-body:    'Space Grotesk', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--ff-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── GRID OVERLAY (signature: PCB trace aesthetic) ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,168,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,168,.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 5vw;
+      background: rgba(11,15,20,.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-size: .85rem;
+      color: var(--accent);
+      letter-spacing: .08em;
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      font-size: .8rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── SECTIONS ── */
+    section { position: relative; z-index: 1; }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 5vw;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 5vw;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--ff-display);
+      font-size: .72rem;
+      color: var(--accent);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero-name {
+      font-family: var(--ff-display);
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .hero-name span { color: var(--accent); }
+
+    .hero-tagline {
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 4px;
+      font-family: var(--ff-display);
+      font-size: .8rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      border: none;
+    }
+    .btn-primary:hover { background: #00f0c0; transform: translateY(-2px); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+    .btn-outline:hover { background: rgba(0,212,168,.08); transform: translateY(-2px); }
+
+    /* PCB circuit board SVG illustration */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .pcb-card {
+      position: relative;
+      width: 320px;
+      height: 320px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .pcb-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(0,212,168,.12) 0%, transparent 60%),
+        radial-gradient(circle at 70% 70%, rgba(0,119,255,.08) 0%, transparent 60%);
+    }
+
+    .pcb-chip {
+      width: 120px;
+      height: 120px;
+      background: var(--card);
+      border: 1.5px solid var(--accent);
+      border-radius: 6px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 24px;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 0 30px rgba(0,212,168,.15);
+    }
+
+    .pcb-dot {
+      width: 100%;
+      aspect-ratio: 1;
+      background: var(--accent);
+      border-radius: 2px;
+      animation: blink 2s ease-in-out infinite;
+    }
+    .pcb-dot:nth-child(2) { animation-delay: .5s; background: var(--accent2); }
+    .pcb-dot:nth-child(3) { animation-delay: 1s; }
+    .pcb-dot:nth-child(4) { animation-delay: 1.5s; background: var(--accent2); }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .3; }
+    }
+
+    /* trace lines */
+    .trace {
+      position: absolute;
+      background: var(--accent);
+      opacity: .25;
+    }
+
+    .badge-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .badge {
+      font-family: var(--ff-display);
+      font-size: .68rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--muted);
+    }
+
+    /* ── SECTION HEADERS ── */
+    .section-header {
+      margin-bottom: 48px;
+    }
+
+    .section-label {
+      font-family: var(--ff-display);
+      font-size: .7rem;
+      color: var(--accent);
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .section-title {
+      font-family: var(--ff-display);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    /* ── ABOUT ── */
+    #about { padding: 100px 0; }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .about-text {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.85;
+    }
+
+    .about-text p + p { margin-top: 16px; }
+
+    .about-text strong { color: var(--text); font-weight: 600; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .stat-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 28px 24px;
+    }
+
+    .stat-number {
+      font-family: var(--ff-display);
+      font-size: 2.4rem;
+      color: var(--accent);
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: .8rem;
+      color: var(--muted);
+      letter-spacing: .05em;
+    }
+
+    /* ── SKILLS ── */
+    #skills { padding: 100px 0; background: var(--surface); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 28px;
+      transition: border-color .2s, background .2s;
+    }
+
+    .skill-card:hover {
+      border-color: var(--accent);
+      background: rgba(0,212,168,.04);
+    }
+
+    .skill-icon {
+      font-size: 1.4rem;
+      margin-bottom: 14px;
+    }
+
+    .skill-name {
+      font-family: var(--ff-display);
+      font-size: .82rem;
+      color: var(--text);
+      margin-bottom: 10px;
+      letter-spacing: .05em;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: .7rem;
+      font-family: var(--ff-display);
+      padding: 3px 8px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 2px;
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience { padding: 100px 0; }
+
+    .timeline { position: relative; }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      padding-left: 36px;
+      position: relative;
+      margin-bottom: 56px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: 8px;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .timeline-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .timeline-role {
+      font-family: var(--ff-display);
+      font-size: .95rem;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .timeline-company {
+      font-family: var(--ff-display);
+      font-size: .75rem;
+      color: var(--accent);
+      letter-spacing: .08em;
+    }
+
+    .timeline-date {
+      font-family: var(--ff-display);
+      font-size: .7rem;
+      color: var(--muted);
+      letter-spacing: .08em;
+      margin-left: auto;
+    }
+
+    .timeline-body {
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.8;
+    }
+
+    .timeline-body ul {
+      list-style: none;
+      margin-top: 10px;
+    }
+
+    .timeline-body li {
+      padding: 5px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .timeline-body li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: .8rem;
+    }
+
+    /* ── PROJECTS ── */
+    #projects { padding: 100px 0; background: var(--surface); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .2s;
+    }
+
+    .project-card:hover { border-color: var(--accent); }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity .2s;
+    }
+
+    .project-card:hover::before { opacity: 1; }
+
+    .project-badge {
+      display: inline-block;
+      font-family: var(--ff-display);
+      font-size: .65rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      background: rgba(0,212,168,.1);
+      color: var(--accent);
+      border: 1px solid rgba(0,212,168,.3);
+      border-radius: 2px;
+      margin-bottom: 18px;
+    }
+
+    .project-title {
+      font-family: var(--ff-display);
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+
+    .project-metrics {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .metric {
+      font-family: var(--ff-display);
+      font-size: .72rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .metric span { color: var(--accent); font-weight: 700; }
+
+    /* ── ACHIEVEMENTS ── */
+    #achievements { padding: 100px 0; }
+
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .ach-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 28px;
+    }
+
+    .ach-icon { font-size: 1.6rem; margin-bottom: 12px; }
+
+    .ach-title {
+      font-family: var(--ff-display);
+      font-size: .82rem;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .ach-body {
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── CONTACT ── */
+    #contact { padding: 100px 0; background: var(--surface); }
+
+    .contact-inner {
+      max-width: 680px;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 36px;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 22px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      font-family: var(--ff-display);
+      font-size: .78rem;
+      letter-spacing: .08em;
+      transition: all .2s;
+      border-radius: 2px;
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(0,212,168,.05);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 28px 5vw;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    footer p {
+      font-family: var(--ff-display);
+      font-size: .68rem;
+      color: var(--muted);
+      letter-spacing: .08em;
+    }
+
+    /* ── FADE-IN ANIMATION ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-visual { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .achievements-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up { opacity: 1; transform: none; }
+      .pcb-dot { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">KS // ECE</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#achievements">Awards</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="hero-eyebrow">// Portfolio — ECE Engineer</p>
+        <h1 class="hero-name">Karthikeyan<br/><span>S.</span></h1>
+        <p class="hero-tagline">
+          Building intelligent systems at the intersection of embedded hardware, IoT, and AI. Patent holder. IEEE author. Project Associate.
+        </p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#contact" class="btn btn-outline">Get in Touch</a>
+        </div>
+        <div class="badge-row">
+          <span class="badge">Patent Holder</span>
+          <span class="badge">IEEE Author</span>
+          <span class="badge">IoT</span>
+          <span class="badge">ML</span>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="pcb-card">
+          <!-- PCB trace lines -->
+          <div class="trace" style="width:60px;height:1px;top:40px;left:20px;"></div>
+          <div class="trace" style="width:1px;height:80px;top:40px;left:80px;"></div>
+          <div class="trace" style="width:40px;height:1px;bottom:60px;right:20px;"></div>
+          <div class="trace" style="width:1px;height:60px;bottom:60px;right:60px;opacity:.15;background:var(--accent2)"></div>
+          <div class="trace" style="width:80px;height:1px;top:80px;right:20px;opacity:.15;background:var(--accent2)"></div>
+          <div class="trace" style="width:1px;height:40px;top:80px;right:100px;"></div>
+          <div class="pcb-chip">
+            <div class="pcb-dot"></div>
+            <div class="pcb-dot"></div>
+            <div class="pcb-dot"></div>
+            <div class="pcb-dot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-label">01 — About</p>
+        <h2 class="section-title">Engineer. Innovator. Builder.</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text fade-up">
+          <p>
+            I'm a <strong>B.E. Electronics & Communication Engineering</strong> graduate from Saveetha Engineering College, Chennai, with a deep focus on embedded systems, IoT architectures, and machine learning integration.
+          </p>
+          <p>
+            My work spans hardware prototyping to AI deployment — from designing <strong>Arduino-based sensor systems</strong> to training <strong>YOLOv8 models</strong> for PCB fault diagnosis. I hold a <strong>patent</strong> for a Smart Ammonia Monitoring System and have published research in IEEE conference proceedings.
+          </p>
+          <p>
+            Currently working as a <strong>Project Associate at LMES Academy</strong>, where I lead AI-integrated educational initiatives and manage cross-functional programs that bridge technology and learning.
+          </p>
+        </div>
+        <div class="stats-grid fade-up">
+          <div class="stat-box">
+            <div class="stat-number">1</div>
+            <div class="stat-label">Patent Held</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">2</div>
+            <div class="stat-label">IEEE Publications</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">3+</div>
+            <div class="stat-label">Competition 1st Prizes</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">85%</div>
+            <div class="stat-label">ML Model Accuracy (YOLOv8)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-label">02 — Skills</p>
+        <h2 class="section-title">Technical Stack</h2>
+      </div>
+      <div class="skills-grid fade-up">
+        <div class="skill-card">
+          <div class="skill-icon">🔌</div>
+          <div class="skill-name">Embedded Systems</div>
+          <div class="skill-tags">
+            <span class="tag">Arduino</span>
+            <span class="tag">Raspberry Pi</span>
+            <span class="tag">KiCAD</span>
+            <span class="tag">Vivado</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">📡</div>
+          <div class="skill-name">IoT Development</div>
+          <div class="skill-tags">
+            <span class="tag">Sensor Networks</span>
+            <span class="tag">Real-time Data</span>
+            <span class="tag">Dashboards</span>
+            <span class="tag">Alerts</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">🤖</div>
+          <div class="skill-name">AI & Machine Learning</div>
+          <div class="skill-tags">
+            <span class="tag">YOLOv8</span>
+            <span class="tag">HeyGen AI</span>
+            <span class="tag">FLIR Thermal</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">📊</div>
+          <div class="skill-name">Data & Automation</div>
+          <div class="skill-tags">
+            <span class="tag">Power BI</span>
+            <span class="tag">Automated Workflows</span>
+            <span class="tag">Analytics</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">🗂️</div>
+          <div class="skill-name">Project Management</div>
+          <div class="skill-tags">
+            <span class="tag">Strategic Planning</span>
+            <span class="tag">Task Prioritization</span>
+            <span class="tag">Cross-functional</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">🏆</div>
+          <div class="skill-name">Certifications</div>
+          <div class="skill-tags">
+            <span class="tag">NPTEL IoT</span>
+            <span class="tag">B.A. Hindi</span>
+            <span class="tag">SIH Participant</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-label">03 — Experience</p>
+        <h2 class="section-title">Work History</h2>
+      </div>
+      <div class="timeline fade-up">
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <span class="timeline-role">Project Associate</span>
+            <span class="timeline-company">LMES Academy</span>
+            <span class="timeline-date">Dec 2025 — Present</span>
+          </div>
+          <div class="timeline-body">
+            <ul>
+              <li>Conceptualized and designed the "Uptor Warriors" club initiative, boosting student engagement and participation.</li>
+              <li>Implemented HeyGen AI to translate Tamil educational content into professional English videos, streamlining delivery.</li>
+              <li>Coordinated placement activities and developed systematic student progress tracking mechanisms.</li>
+              <li>Maintained active liaison with students, faculty, and industry partners for seamless program execution.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <span class="timeline-role">Intern — Embedded Systems</span>
+            <span class="timeline-company">Village Technology School</span>
+            <span class="timeline-date">Jan 2022</span>
+          </div>
+          <div class="timeline-body">
+            <ul>
+              <li>Engineered 3+ Arduino-based prototypes specialising in real-time sensor data collection and analysis.</li>
+              <li>Executed circuit testing, serial communication systems, and comprehensive debugging procedures.</li>
+              <li>Produced detailed wiring diagrams and user manuals to ensure project scalability.</li>
+              <li>Conducted thorough testing and validation of embedded systems for optimal performance.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-label">04 — Projects</p>
+        <h2 class="section-title">Key Builds</h2>
+      </div>
+      <div class="projects-grid fade-up">
+
+        <div class="project-card">
+          <span class="project-badge">IEEE Published</span>
+          <h3 class="project-title">PCB Fault Diagnosis System</h3>
+          <p class="project-desc">
+            An advanced monitoring system using Raspberry Pi and FLIR Thermal Imaging. A YOLOv8 ML model was trained to detect component anomalies with 85% accuracy, significantly reducing diagnostic time in electronic systems.
+          </p>
+          <div class="project-metrics">
+            <div class="metric"><span>85%</span> detection accuracy</div>
+            <div class="metric"><span>YOLOv8</span> model</div>
+            <div class="metric"><span>FLIR</span> thermal imaging</div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <span class="project-badge" style="background:rgba(0,119,255,.1);color:var(--accent2);border-color:rgba(0,119,255,.3);">Patent Holder</span>
+          <h3 class="project-title">Smart Ammonia Monitoring System</h3>
+          <p class="project-desc">
+            A comprehensive IoT sensor network for real-time hygiene monitoring in public restroom facilities. Integrated automated alerting and interactive dashboards to optimise cleaning schedules. Patent granted; findings published in IEEE proceedings.
+          </p>
+          <div class="project-metrics">
+            <div class="metric"><span>IoT</span> sensor network</div>
+            <div class="metric"><span>Patent</span> granted</div>
+            <div class="metric"><span>Real-time</span> dashboards</div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <span class="project-badge">AI Integration</span>
+          <h3 class="project-title">Uptor Warriors — AI-Powered Learning Club</h3>
+          <p class="project-desc">
+            Designed and launched an AI-enhanced student engagement initiative at LMES Academy. Leveraged HeyGen AI to localise Tamil content into professional English video materials, improving accessibility and program reach.
+          </p>
+          <div class="project-metrics">
+            <div class="metric"><span>HeyGen</span> AI platform</div>
+            <div class="metric"><span>Tamil → English</span> content</div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <span class="project-badge">Hardware</span>
+          <h3 class="project-title">Arduino Sensor Prototypes</h3>
+          <p class="project-desc">
+            Engineered 3+ Arduino-based prototypes during an embedded systems internship, specialising in real-time data collection, circuit testing, serial communication, and thorough documentation for downstream scalability.
+          </p>
+          <div class="project-metrics">
+            <div class="metric"><span>3+</span> prototypes</div>
+            <div class="metric"><span>Arduino</span> platform</div>
+            <div class="metric"><span>Real-time</span> sensing</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-label">05 — Recognition</p>
+        <h2 class="section-title">Awards & Milestones</h2>
+      </div>
+      <div class="achievements-grid fade-up">
+        <div class="ach-card">
+          <div class="ach-icon">🥇</div>
+          <div class="ach-title">BizzMatrix Competition</div>
+          <div class="ach-body">First Prize — Anna University. Recognised for strategic innovation and technical execution.</div>
+        </div>
+        <div class="ach-card">
+          <div class="ach-icon">🥇</div>
+          <div class="ach-title">Technical Competition</div>
+          <div class="ach-body">First Prize — Rajalakshmi College. Awarded for outstanding technical problem-solving.</div>
+        </div>
+        <div class="ach-card">
+          <div class="ach-icon">🥇</div>
+          <div class="ach-title">Engineering Competition</div>
+          <div class="ach-body">First Prize — Saveetha Engineering College. Demonstrated excellence in engineering concepts.</div>
+        </div>
+        <div class="ach-card">
+          <div class="ach-icon">🇮🇳</div>
+          <div class="ach-title">Smart India Hackathon</div>
+          <div class="ach-body">National Level Participant — one of India's premier student innovation competitions.</div>
+        </div>
+        <div class="ach-card">
+          <div class="ach-icon">📜</div>
+          <div class="ach-title">Patent — IoT System</div>
+          <div class="ach-body">Patent holder for the Smart Ammonia Monitoring System — real-time IoT hygiene solution.</div>
+        </div>
+        <div class="ach-card">
+          <div class="ach-icon">📄</div>
+          <div class="ach-title">IEEE Publications</div>
+          <div class="ach-body">Published research in IEEE conference proceedings for PCB Health Monitoring and IoT systems.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-inner">
+        <div class="section-header fade-up">
+          <p class="section-label">06 — Contact</p>
+          <h2 class="section-title">Let's Connect</h2>
+        </div>
+        <p class="about-text fade-up" style="font-size:1rem;color:var(--muted);line-height:1.8;">
+          Open to opportunities in embedded systems, IoT, AI integration, and project management. Feel free to reach out for collaborations, roles, or just a technical conversation.
+        </p>
+        <div class="contact-links fade-up">
+          <a href="mailto:karthioffece@gmail.com" class="contact-link">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+            karthioffece@gmail.com
+          </a>
+          <a href="tel:7338929319" class="contact-link">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2A19.79 19.79 0 013.08 4.18 2 2 0 015.09 2h3a2 2 0 012 1.72 12.64 12.64 0 00.7 2.81 2 2 0 01-.45 2.11L9.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.64 12.64 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+            +91 73389 29319
+          </a>
+          <a href="https://www.linkedin.com/in/karthikeyan-s" target="_blank" rel="noopener" class="contact-link">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452H17.21v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.988V9h3.103v1.561h.044c.432-.818 1.487-1.681 3.059-1.681 3.27 0 3.875 2.151 3.875 4.948v6.624zM5.337 7.433a1.8 1.8 0 110-3.6 1.8 1.8 0 010 3.6zm1.554 13.019H3.783V9h3.108v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Karthikeyan S. — ECE Engineer, Chennai</p>
+    <p>Built for GitHub Pages</p>
+  </footer>
+
+  <script>
+    // Scroll-triggered fade-up
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
